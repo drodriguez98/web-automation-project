@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 import pandas as pd
 import time
+import os  # Importar os para manejar rutas
 
 # Configuración MÍNIMA de Chrome - sin conexiones externas
 options = Options()
@@ -70,11 +71,19 @@ try:
                 print(f"📰 {i+1}. {title[:80]}...")
                 continue
     
-    # Guardar resultados
+    # Guardar resultados en la carpeta output
     if data:
         df = pd.DataFrame(data)
-        df.to_csv('google_news_with_selenium.csv', index=False, encoding='utf-8')
-        print(f"\n🎉 ¡Éxito! Guardadas {len(data)} noticias en google_news_with_selenium.csv")
+        
+        # Definir la ruta completa del archivo en la carpeta output
+        output_path = '../output/google_news_with_selenium.csv'
+        
+        # Asegurar que la carpeta output existe
+        os.makedirs('../output', exist_ok=True)
+        
+        # Guardar en la carpeta output
+        df.to_csv(output_path, index=False, encoding='utf-8')
+        print(f"\n🎉 ¡Éxito! Guardadas {len(data)} noticias en '{output_path}'")
         
         # Mostrar primeras 5
         print("\n📋 Primeras noticias:")

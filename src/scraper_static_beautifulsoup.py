@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import re
+import os  # Importar os para manejar rutas
 
 # URL objetivo
 url = 'https://www.marketingdive.com/news/'
@@ -74,11 +75,16 @@ try:
             print(f"Error procesando un artículo: {e}")
             continue
 
-    # Crear un DataFrame y guardar en CSV
+    # Crear un DataFrame y guardar en CSV en la carpeta output
     if data:
         df = pd.DataFrame(data)
-        df.to_csv('marketing_dive_news_beautifulsoup.csv', index=False)
-        print(f"¡Éxito! Se extrajeron {len(data)} artículos y se guardaron en 'marketing_dive_news_beautifulsoup.csv'")
+        
+        # Definir la ruta completa del archivo en la carpeta output
+        output_path = '../output/marketing_dive_news_beautifulsoup.csv'
+        
+        # Guardar en la carpeta output
+        df.to_csv(output_path, index=False)
+        print(f"¡Éxito! Se extrajeron {len(data)} artículos y se guardaron en '{output_path}'")
         print("\nPrimeras 5 noticias:")
         print(df[['headline', 'category']].head().to_string(index=False))
     else:
