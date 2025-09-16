@@ -33,7 +33,7 @@ def accept_cookies(driver: webdriver.Chrome):
     try:
         button = driver.find_element(By.XPATH, "//button[contains(., 'Aceptar')]")
         button.click()
-        print("✅ Cookies aceptadas")
+        print("Cookies aceptadas")
         time.sleep(2)
     except NoSuchElementException:
         pass
@@ -42,7 +42,7 @@ def accept_cookies(driver: webdriver.Chrome):
 def scrape_articles(driver: webdriver.Chrome) -> List[Dict]:
     articles = []
     news_links = driver.find_elements(By.CSS_SELECTOR, "a.gPFEn")
-    print(f"✅ Encontrados {len(news_links)} enlaces potenciales")
+    print(f"Encontrados {len(news_links)} enlaces potenciales")
 
     for i, link in enumerate(news_links, 1):
         try:
@@ -65,14 +65,14 @@ def scrape_articles(driver: webdriver.Chrome) -> List[Dict]:
             # print(f"📰 {i}. {title[:80]}...")
 
         except Exception as e:
-            print(f"⚠️ Error procesando enlace {i}: {e}")
+            print(f"❌ Error procesando enlace {i}: {e}")
 
     return articles
 
 # Guarda artículos en CSV.
 def save_to_csv(data: List[Dict], path: str):
     if not data:
-        print("😞 No hay datos para guardar")
+        print("❌ No hay datos para guardar")
         return
 
     df = pd.DataFrame(data)
@@ -96,12 +96,10 @@ def main():
         save_to_csv(articles, OUTPUT_PATH)
 
     except Exception as e:
-        print(f"💥 Error en la ejecución: {e}")
+        print(f"❌ Error en la ejecución: {e}")
 
     finally:
         driver.quit()
-        print("🔚 Navegador cerrado")
-
 
 if __name__ == "__main__":
     main()

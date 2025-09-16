@@ -45,18 +45,18 @@ def fetch_articles():
                 if art.find('a', class_='topic-tag') else ''
             })
         
-        print(f"✅ Encontrados {len(results)} enlaces")
+        print(f"Encontrados {len(results)} enlaces")
 
         return results
 
     except requests.RequestException as e:
-        print(f"Error de red: {e}")
+        print(f" ❌ Error de conexión: {e}")
         return []
 
 # Guarda los datos en un archivo CSV.
 def save_to_csv(data, path):
     if not data:
-        print("No hay datos para guardar.")
+        print("❌ No hay datos para guardar.")
         return
 
     df = pd.DataFrame(data)
