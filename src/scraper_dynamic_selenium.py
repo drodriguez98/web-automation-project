@@ -78,8 +78,8 @@ def extract_article_data(link_element) -> Optional[Dict]:
             link = f'https://news.google.com{link[1:]}'
         
         return {
-            'titulo': title,
-            'enlace': link
+            'title': title,
+            'link': link
         }
         
     except Exception as e:
@@ -105,7 +105,7 @@ def scrape_news_articles(driver: webdriver.Chrome) -> List[Dict]:
             article_data = extract_article_data(link_element)
             if article_data:
                 articles_data.append(article_data)
-                print(f"📰 {i}. {article_data['titulo'][:80]}...")
+                print(f"📰 {i}. {article_data['title'][:80]}...")
                 
         except Exception as e:
             print(f"⚠️ Error procesando enlace {i}: {e}")
@@ -135,8 +135,8 @@ def display_results(articles_data: List[Dict], num_results: int = 5):
     print("\n📋 Primeras noticias:")
     
     for i, article in enumerate(articles_data[:num_results], 1):
-        print(f"{i}. {article['titulo']}")
-        print(f"   🔗 {article['enlace']}")
+        print(f"{i}. {article['title']}")
+        print(f"   🔗 {article['link']}")
         print()
 
 # Función principal del script.

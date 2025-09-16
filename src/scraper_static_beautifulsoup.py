@@ -69,7 +69,7 @@ def parse_article_data(article: BeautifulSoup) -> Optional[Dict]:
         category = topic_element.get_text(strip=True) if topic_element else ''
         
         return {
-            'headline': title,
+            'title': title,
             'link': link,
             'description': description,
             'category': category
@@ -95,7 +95,7 @@ def save_to_csv(data: List[Dict], output_path: str) -> bool:
 def display_results(df: pd.DataFrame, num_results: int = 5):
     print(f"\n📊 Total de noticias extraídas: {len(df)}")
     print("\n📋 Primeras noticias:")
-    print(df[['headline', 'category']].head(num_results).to_string(index=False))
+    print(df[['title', 'category']].head(num_results).to_string(index=False))
 
 # Función principal del script.
 def main():
